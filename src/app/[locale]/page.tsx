@@ -1,7 +1,12 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import VideoComponent from "@/components/VideoComponent";
+
+import Grid from "@mui/material/Unstable_Grid2";
+
+import SearchIcon from '@mui/icons-material/Search';
+
+import VideoThumb from "@/components/Home/VideoThumb";
 
 const Index = () => {
     const t = useTranslations("Index");
@@ -15,16 +20,38 @@ const Index = () => {
             description: "This is a test video, probably will lorem it soon.",
         },
         measurements: {
-            width: 680,
-            height: 120,
+            width: 256,
+            height: 64,
         },
-        url: "/videos/temp"
-    }
+        url: "/img/stonks.avif",
+    };
+    const cats = Array(3).fill(Array(4).fill(video, 0), 0)
 
     return (
         <main>
             <h1>{ t("title")} </h1>
-            <VideoComponent video={video}/>
+            <Grid container spacing={2} justifyContent="center" alignItems="center">
+                <Grid xs={12} className="flex justify-center">
+                    <div className="flex w-6/12">
+                        <input type="text" className="text-slate-900 w-full"/>
+                    </div>
+                    <button className="w-1/12 flex">
+                        <SearchIcon />
+                    </button>
+                </Grid>
+                { cats.map((cat, index) => (
+                    <>
+                    <Grid xs={12}>
+                        <h1>Category {index + 1}</h1>
+                    </Grid>
+                    {cat.map((current: any, index: number) => (
+                        <Grid xs={3} key={`home-${index}`}>
+                            <VideoThumb video={current}/>
+                        </Grid>
+                    ))}
+                    </>
+                ))}
+            </Grid>
         </main>
     )
 }
