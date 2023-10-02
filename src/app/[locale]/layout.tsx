@@ -3,6 +3,9 @@ import { ReactNode } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+
 export const generateStaticParams = () => [
     { locale: "en" }, { locale: "es" }
 ];
@@ -30,7 +33,9 @@ const LocaleLayout = async ({ children, params: { locale }} : Props) => {
         <html>
             <body>
                 <NextIntlClientProvider locale={ locale } messages={ messages }>
+                    <Header />
                     { children }
+                    <Footer />
                 </NextIntlClientProvider>
             </body>
         </html>
