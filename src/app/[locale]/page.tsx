@@ -4,8 +4,6 @@ import { useTranslations } from "next-intl";
 
 import Grid from "@mui/material/Unstable_Grid2";
 
-import SearchIcon from '@mui/icons-material/Search';
-
 import VideoThumb from "@/components/Home/VideoThumb";
 
 const Index = () => {
@@ -29,26 +27,17 @@ const Index = () => {
 
     return (
         <main>
-            <h1>{ t("title")} </h1>
-            <Grid container spacing={2} justifyContent="center" alignItems="center">
-                <Grid xs={12} className="flex justify-center">
-                    <div className="flex w-6/12">
-                        <input type="text" className="text-slate-900 w-full"/>
-                    </div>
-                    <button className="w-1/12 flex">
-                        <SearchIcon />
-                    </button>
-                </Grid>
+            <Grid container spacing={2} className="" justifyContent="center" alignItems="center">
                 { cats.map((cat, index) => (
                     <>
-                    <Grid xs={12}>
-                        <h1>Category {index + 1}</h1>
-                    </Grid>
-                    {cat.map((current: any, index: number) => (
-                        <Grid xs={3} key={`home-${index}`}>
-                            <VideoThumb video={current}/>
+                        <Grid xs={12} key={`cat-title-${index + 1}`}>
+                            <h1>Category {index + 1}</h1>
                         </Grid>
-                    ))}
+                        {cat.map((current: any, index: number) => (
+                            <Grid xs={12} md={6} lg={3} key={`home-${index}`}>
+                                <VideoThumb video={current}/>
+                            </Grid>
+                        ))}
                     </>
                 ))}
             </Grid>

@@ -11,7 +11,7 @@ const VideoThumb = ({ video }: { video: Video }) => {
     const { measurements, metadata, url } = video;
 
     return (
-        <a href="gotovideo">
+        <a href={`${ metadata.id }`}>
             <Stack sx={{ display: "flex"  }} >
                 <Image
                     src={url}
