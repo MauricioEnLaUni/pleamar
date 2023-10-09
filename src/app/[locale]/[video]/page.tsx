@@ -1,42 +1,32 @@
-"use client"
+/// <reference path="../../../components/Video.d.ts" />
 import React from "react";
 
-import { useRouter } from "next/router";
 import Image from "next/image";
+import type { Metadata } from "next";
 
-const videos = [{
-    metadata: {
-        author: "Test",
-        name: "Test Video",
-        id: "alksdmaslfn",
-        tags: ["One", "Two", "Three"],
-        length: 1000,
-        description: "This is a test video, probably will lorem it soon.",
-    },
-    measurements: {
-        width: 256,
-        height: 64,
-    },
-    url: "/img/stonks.avif",
-}, {
-    metadata: {
-        author: "Test",
-        name: "Test Video",
-        id: "123456",
-        tags: ["One", "Two", "Three"],
-        length: 1000,
-        description: "This is a test video, probably will lorem it soon.",
-    },
-    measurements: {
-        width: 256,
-        height: 64,
-    },
-    url: "/img/stonks.avif",
-}];
+import getVideos from "@/lib/getVideos";
 
-const VideoPage = () => {
-    const router = useRouter();
-    const video = videos.filter(e => e.metadata.id === router.query.slug)[0];
+type Props = {
+    params: {
+        videoId: string
+    }
+}
+
+const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+    const videoData: Promise<Video> = getVideos(params.videoId);
+    const video = await videoData;
+
+    return {
+        title: video.metadata.name,
+        description: video.metadata.description,
+        creator:  video.metadata.author,
+    }
+}
+
+const VideoPage = async ({ params }: Props) => {
+    const videoData: Promise<Video> = getVideos(params.videoId);
+
+    const video = await videoData;
 
     return(
         <section>
