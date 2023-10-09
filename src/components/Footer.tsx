@@ -39,7 +39,7 @@ const Footer = () => {
                 </Grid>
                 <Grid xs={3}>
                     {contacts.map(current => (
-                        <IconButton onClick={() => router.push(`/ls?l=${ current[1] }`)} >
+                        <IconButton key={current[1] as string} onClick={() => router.push(`/ls?l=${ current[1] }`)} >
                             { current[0] }
                         </IconButton>
                     ))}
