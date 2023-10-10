@@ -11,7 +11,12 @@ type Result<TContent> = {
     msg: string | undefined
 }
 
-type DatabaseOperation = (request: DatabaseRequest) => Promise<Result<any>>;
+type DatabaseOperation = (request: DBQuery) => Promise<Result<any>>;
+
+type DBQuery = {
+    operation: string,
+    data: string[]
+}
 
 type DatabaseRequest = {
     readonly query: string,
@@ -54,4 +59,11 @@ type RequestMultiple = {
         refresh_token: string,
     },
     readonly checksum: string,
+}
+
+type AdapterProps = {
+    user: string,
+    host: string,
+    database: string,
+    password: string
 }

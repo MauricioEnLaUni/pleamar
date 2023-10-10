@@ -1,9 +1,21 @@
 ///<reference path="./types.d.ts" />
 import { Client } from "pg";
-
 export default class PgAdapter implements DatabaseStrategy
 {
-    private readonly client = new Client();
+    private readonly client;
+    constructor({
+        user,
+        host,
+        database,
+        password
+    }: AdapterProps) {
+        this.client = new Client({
+            user,
+            host,
+            database,
+            password
+        });
+    }
 
     private connect(client: Client = this.client)
     {
@@ -28,7 +40,7 @@ export default class PgAdapter implements DatabaseStrategy
     }
 
     readonly transact = (
-        queries: string[],
+        queries: DBQuery[],
         client: Client = this.client
     ) => {
         try
@@ -36,7 +48,7 @@ export default class PgAdapter implements DatabaseStrategy
             this.connect(client);
             client.query("BEGIN");
             const results = queries
-                .map(query => this.operate({ query, client }));
+                .map(request => this.operate(request));
             client.query("COMMIT");
             return results;
         } catch (error)
@@ -47,13 +59,10 @@ export default class PgAdapter implements DatabaseStrategy
         }
     }
 
-    readonly operate = async ({
-        query,
-        client = this.client
-    }: DatabaseRequest) => {
+    readonly operate = async (query: DBQuery) => {
         try
         {
-            const contents = await client.query(query);
+            const contents = await this.client.query(query.operation, query.data);
 
             return { contents, msg: undefined };
         } catch (error)
