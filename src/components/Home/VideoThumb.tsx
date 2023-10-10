@@ -1,31 +1,50 @@
 /// <reference path="../Video.d.ts" />
 import React from "react";
 
-import Image from "next/image";
-
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import IconButton from "@mui/material/IconButton";
+import { CardActionArea, CardActions } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import CardContent from "@mui/material/CardContent";
+
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+
+const displayTime = (length: number) => {
+    const time = [1000, 60, 60];
+    
+    const duration = time.map(e => {
+        const current = Math.floor(length / e);
+        return current > 0 ? current : "";
+    });
+
+    return duration.join(":");
+}
 
 const VideoThumb = ({ video }: { video: Video }) => {
     const { measurements, metadata, url } = video;
+    const length = displayTime(metadata.length);
 
     return (
-        <a href={`${ metadata.id }`}>
-            <Stack sx={{ display: "flex"  }} >
-                <Image
-                    src={url}
-                    width={ measurements.width }
-                    height={ measurements.height }
-                    alt={`${ metadata.name } Thumbnail`}
+        <Card sx={{ position: "relative" }}>
+            <CardActionArea>
+                <CardMedia
+                    sx={{ height: measurements.height }}
+                    image={url}
+                    title={`${ metadata.name } Thumbnail`}
                 />
-                <Box>
+                <Typography>{ length }</Typography>
+                <CardContent>
                     <Typography>{ metadata.name }</Typography>
                     <Typography>{ metadata.author }</Typography>
-                    <Typography>{ metadata.length }</Typography>
-                </Box>
-            </Stack>
-        </a>
+                </CardContent>
+            </CardActionArea>
+            <CardActions>
+                <IconButton>
+                    <MoreVertIcon />
+                </IconButton>
+            </CardActions>
+        </Card>
     )
 }
 

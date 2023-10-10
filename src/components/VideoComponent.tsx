@@ -1,6 +1,5 @@
 "use client"
 /// <reference path ="./Video.d.ts" />
-import react from "react";
 
 const VideoComponent = ({ video }: VideoComponentProps) => {
     const { measurements, metadata, url } = video;

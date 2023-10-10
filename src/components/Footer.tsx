@@ -49,11 +49,13 @@ const Footer = () => {
 
                     </Grid>
                 </Grid>
-                <Grid xs={12}>
-                    <Stack direction="row">
+                <Grid xs={12} className="my-3">
+                    <Stack direction="row" justifyContent={"space-between"}>
                         <p>© All rights reserved</p>
-                        <Link href="/en/privacy">Privacy Policy</Link>
-                        <Link href="/en/tos">Terms of Service</Link>
+                        <Stack direction="row" spacing={4} justifyContent={"space-between"}>
+                            <Link href="/en/privacy">Privacy Policy</Link>
+                            <Link href="/en/tos">Terms of Service</Link>
+                        </Stack>
                     </Stack>
                 </Grid>
             </Grid>

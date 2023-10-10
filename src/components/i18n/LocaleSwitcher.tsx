@@ -18,7 +18,7 @@ const LocaleSwitcher = () => {
     const router = useRouter();
     const pathname = usePathname();
 
-    const { publicRuntimeConfig } = getConfig();
+    const langs = ["es", "en"];
 
     const changeLocale = (event: SelectChangeEvent) => {
         startTransition(() => {
@@ -40,7 +40,7 @@ const LocaleSwitcher = () => {
                 label={t("label")}
                 onChange={changeLocale}
             >
-                {publicRuntimeConfig.langs.map((current: string) => 
+                {langs.map((current: string) => 
                     <MenuItem key={current} value={current}>
                         { current }
                     </MenuItem>
