@@ -7,5 +7,30 @@
     },
     "Index": {
         "title": "¡Hola que hace!"
+    },
+    "VisitorHome": {
+        "callToAction": {
+            "main": "¡Zarpa al éxito!",
+            "mainButton": "Empieza tu viaje",
+            "secondary": "¡Únete a la flota!",
+            "secondaryButton": "Empezar mi viaje"
+        },
+        "heroAlt": "Dos botes esperan a sus ocupantes para zarpar a un lago.",
+        "features": {
+            "title": "Features",
+            "list": {
+                "feat0": "Complementa tu educación con cursos curados por el personal de la Universidad Tecnológica de Aguascalientes.",
+                "feat1": "¡Participa como creador en una forma inovativa para crear material de estudio y de apoyo a las clases!",
+                "feat2": "¡Nunca pierdas una clase!\n¡Con Pleamar todos tus cursos están a sólo un clic de distancia!"
+            }
+        },
+        "testimonials": {
+            "title": "La Flota",
+            "0": "It cured my cancer",
+            "1": "Very simple and clear interface",
+            "2": "Amazing user experience 10/10",
+            "3": "I wish we could give them more money",
+            "4": "I think that's enough to cover the whole screen"
+        }
     }
 }

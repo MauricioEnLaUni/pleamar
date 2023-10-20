@@ -5,9 +5,11 @@ import { useTranslations } from "next-intl";
 import Grid from "@mui/material/Unstable_Grid2";
 
 import VideoThumb from "@/components/Home/VideoThumb";
+import CallToAction from "./CallToAction";
 
 const Index = () => {
     const t = useTranslations("Index");
+    
     const video = {
         metadata: {
             author: "Test",
@@ -25,8 +27,11 @@ const Index = () => {
     };
     const cats = Array(3).fill(Array(4).fill(video, 0), 0)
 
+    const auth = true;
+
     return (
         <main>
+            { auth ? 
             <Grid container spacing={2} className="" justifyContent="center" alignItems="center">
                 { cats.map((cat, index) => (
                     <>
@@ -40,7 +45,8 @@ const Index = () => {
                         ))}
                     </>
                 ))}
-            </Grid>
+            </Grid> : <CallToAction />
+            }
         </main>
     )
 }
