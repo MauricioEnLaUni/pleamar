@@ -1,0 +1,107 @@
+generator client {
+    provider = "prisma-client-js"
+    output = "./generated/clientMetadata"
+}
+
+datasource db {
+    provider = "postgresql"
+    url = env("PG_METADATA_CONNECTION")
+}
+
+enum video_status {
+    ACTIVE
+    BANNED
+    DISABLED
+    PROCESSING
+}
+
+enum video_type {
+    MP4
+    OGG
+    FLV
+}
+
+model video_entity {
+    id BigInt @id @default(autoincrement())
+    video_metadata video_metadata?
+    views views[]
+    statuses statuses[]
+    type video_type @default(MP4)
+    user users @relation(fields: [uploader], references: [id])
+    uploader String @db.Uuid
+
+    @@index([uploader])
+}
+
+model statuses {
+    id BigInt @id @default(autoincrement())
+    video_entity video_entity @relation(fields: [video], references: [id])
+    video BigInt
+    current video_status
+}
+
+model video_metadata {
+    id BigInt @id @default(autoincrement())
+    video_entity video_entity @relation(fields: [video], references: [id])
+    video BigInt @unique
+    length_ms BigInt
+    title video_titles[]
+    description video_description[]
+    file_size BigInt
+    uploader String @db.Uuid
+
+    @@index([video, uploader])
+}
+
+model video_titles {
+    id BigInt @id @default(autoincrement())
+    video_metadata video_metadata @relation(fields: [video], references: [id])
+    video BigInt
+    content String @db.Text
+}
+
+model video_description {
+    id BigInt @id @default(autoincrement())
+    video_metadata video_metadata @relation(fields: [video], references: [id])
+    video BigInt
+    content String @db.Text
+}
+
+model views {
+    id BigInt @id @default(autoincrement())
+    video_entity video_entity @relation(fields: [owner], references: [id])
+    owner BigInt @unique
+}
+
+model subtitles_container {
+    id BigInt @id @default(autoincrement())
+    lang String @db.Text
+    subtitles subtitle[]
+}
+
+model subtitle {
+    id BigInt @id @default(autoincrement())
+    subtitles_container subtitles_container @relation(fields: [container], references: [id])
+    container BigInt
+    timestamp BigInt
+    content String
+}
+
+model categories {
+    id BigInt @id @default(autoincrement())
+    name cat_names[]
+    parent BigInt
+    child BigInt
+}
+
+model cat_names {
+    id BigInt @id @default(autoincrement())
+    name String[] @db.Text
+    categories categories @relation(fields: [owner], references: [id])
+    owner BigInt
+}
+
+model users {
+    id String @id @db.Uuid
+    video_entity video_entity[]
+}
