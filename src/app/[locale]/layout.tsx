@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import TanstackProvider from "@/components/Providers/TanstackProvider";
 
 export const generateStaticParams = () => ["es", "en"]
     .map(locale => ({ locale }));
@@ -39,9 +40,11 @@ const LocaleLayout = async ({ children, params: { locale }} : Props) => {
         <html className="clear" lang={ locale }>
             <body>
                 <NextIntlClientProvider locale={ locale } messages={ messages }>
-                    <Header />
-                    { children }
-                    <Footer />
+                    <TanstackProvider>
+                        <Header />
+                            { children }
+                        <Footer />
+                    </TanstackProvider>
                 </NextIntlClientProvider>
             </body>
         </html>

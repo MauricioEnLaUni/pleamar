@@ -8,6 +8,12 @@
     "Index": {
         "title": "¡Hola que hace!"
     },
+    "header": {
+        "auth": {
+            "login": "INGRESAR",
+            "register": "REGISTRARSE"
+        }
+    },
     "VisitorHome": {
         "callToAction": {
             "main": "¡Zarpa al éxito!",

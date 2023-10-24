@@ -1,15 +1,9 @@
-"use client";
-
-import { useTranslations } from "next-intl";
-
 import Grid from "@mui/material/Unstable_Grid2";
 
 import VideoThumb from "@/components/Home/VideoThumb";
 import CallToAction from "./CallToAction";
 
 const Index = () => {
-    const t = useTranslations("Index");
-    
     const video = {
         metadata: {
             author: "Test",

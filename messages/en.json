@@ -8,6 +8,12 @@
     "Index": {
         "title": "Hello there"
     },
+    "header": {
+        "auth": {
+            "login": "LOG IN",
+            "register": "REGISTER"
+        }
+    },
     "VisitorHome": {
         "callToAction": {
             "main": "Cruise towards success!",
