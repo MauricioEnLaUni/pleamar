@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 
 import Grid from "@mui/material/Unstable_Grid2";
@@ -7,6 +8,7 @@ import Stack from "@mui/material/Stack";
 
 import config from "@/config";
 import { useTranslations } from "next-intl";
+import LocalizedText from "@/components/i18n/LocalizedText";
 
 const { img } = config;
 const testimonials = Array.from(Array(5).keys());
@@ -29,18 +31,12 @@ export default () => {
                 </Grid>
                 <Grid xs={6}>
                     <Stack className="pr-12">
-                        <Typography className="mt-3 max-w-xs text-lg">
-                            { t("features.list.feat0") }
-                        </Typography>
-                        <Typography className="mt-24 max-w-xs text-lg">
-                            { t("features.list.feat1") }
-                        </Typography>
+                        <LocalizedText excerpt={"features.list.feat0"} style={"mt-3 max-w-xs text-lg"} />
+                        <LocalizedText excerpt={"features.list.feat1"} style={"mt-24 max-w-xs text-lg"} />
                     </Stack>
                 </Grid>
                 <Grid xs={6} className="pl-12">
-                    <Typography  className="mt-16 max-w-xs text-lg">
-                        { t("features.list.feat2") }
-                    </Typography>
+                    <LocalizedText excerpt={"features.list.feat2"} style={"mt-16 max-w-xs text-lg"} />
                 </Grid>
             </Grid>
             <Grid xs={12} className="mt-8">
@@ -54,7 +50,7 @@ export default () => {
                     <h4>{ t("testimonials.title") }</h4>
                     <Stack direction="row">
                         { testimonials.map(e => (
-                            <p>{ t(`testimonials.${ e }`) }</p>
+                            <LocalizedText key={`testimonials.${ e }`} excerpt={`testimonials.${ e }`} />
                         ))}
                     </Stack>
                 </Stack>
