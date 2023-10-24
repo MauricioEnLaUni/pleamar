@@ -16,6 +16,7 @@
     "@msgpack/msgpack": "^3.0.0-beta2",
     "@mui/icons-material": "^5.14.9",
     "@mui/material": "^5.14.10",
+    "@prisma/client": "^5.4.2",
     "@types/node": "20.6.3",
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "@types/node-rsa": "^1.1.2",
-    "@types/pg": "^8.10.3"
+    "@types/pg": "^8.10.3",
+    "prisma": "^5.4.2"
   }
 }
