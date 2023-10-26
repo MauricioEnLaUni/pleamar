@@ -6,7 +6,7 @@ import Link from "next/link";
 import { CheckCircle, Close, Info } from '@mui/icons-material';
 import Stack from "@mui/material/Stack";
 
-import axios from "@/components/Auth/axios";
+import axios from "@/lib/requests/axios";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;

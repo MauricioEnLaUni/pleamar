@@ -1,4 +1,4 @@
-/// <reference path="../../../components/Auth/Auth.d.ts" />
+/// <reference path="../../../lib/Auth/types.d.ts" />
 import { NextResponse } from "next/server";
 
 import validateChecksum from "@/lib/utils/validateChecksum";

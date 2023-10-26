@@ -5,15 +5,13 @@ import styled from "@emotion/styled";
 
 import TextField, { TextFieldProps } from "@mui/material/TextField";
 
-const TextInput = (props: TextFieldProps) => {
+export default (props: TextFieldProps) => {
     return (
         <VisibleTextField
             { ... props }
         />
     );
 }
-
-export default TextInput;
 
 const VisibleTextField = styled(TextField)({
     ".MuiFilledInput-root": {

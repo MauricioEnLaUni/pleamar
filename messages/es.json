@@ -9,6 +9,7 @@
         "title": "¡Hola que hace!"
     },
     "header": {
+        "logo": "Logo de Pleamar",
         "auth": {
             "login": "INGRESAR",
             "register": "REGISTRARSE"

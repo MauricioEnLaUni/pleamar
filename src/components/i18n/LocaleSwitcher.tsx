@@ -1,7 +1,6 @@
 "use client"
 import { useTransition } from "react";
 
-import getConfig from "next/config";
 import { usePathname, useRouter } from "next/navigation";
 
 import { useLocale, useTranslations } from "next-intl";
@@ -11,7 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 
-const LocaleSwitcher = () => {
+export default () => {
     const t = useTranslations("LocaleSwitcher");
     const [isPending, startTransition] = useTransition();
     const locale = useLocale();
@@ -49,5 +48,3 @@ const LocaleSwitcher = () => {
         </FormControl>
     )
 }
-
-export default LocaleSwitcher;

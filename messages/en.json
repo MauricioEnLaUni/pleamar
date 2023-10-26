@@ -9,6 +9,7 @@
         "title": "Hello there"
     },
     "header": {
+        "logo": "Pleamar logo",
         "auth": {
             "login": "LOG IN",
             "register": "REGISTER"

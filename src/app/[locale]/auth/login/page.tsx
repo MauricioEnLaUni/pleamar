@@ -1,4 +1,4 @@
-/// <reference path="../../../../components/Auth/Auth.d.ts" />
+/// <reference path="../../../../lib/Auth/types.d.ts" />
 "use client"
 import { useState, useEffect} from 'react';
 
@@ -9,7 +9,7 @@ import NodeRSA from "node-rsa";
 import Stack from "@mui/material/Stack";
 
 import config from "@/config";
-import { axiosPrivate } from "@/components/Auth/axios";
+import { axiosPrivate } from "@/lib/requests/axios";
 
 const LOGIN_URL = 'User/auth';
 

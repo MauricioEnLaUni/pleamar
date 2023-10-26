@@ -21,7 +21,7 @@ const displayTime = (length: number) => {
     return duration.join(":");
 }
 
-const VideoThumb = ({ video }: { video: Video }) => {
+export default ({ video }: { video: Video }) => {
     const { measurements, metadata, url } = video;
     const length = displayTime(metadata.length);
 
@@ -47,5 +47,3 @@ const VideoThumb = ({ video }: { video: Video }) => {
         </Card>
     )
 }
-
-export default VideoThumb;
