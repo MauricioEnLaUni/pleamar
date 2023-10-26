@@ -1,0 +1,43 @@
+{
+    "LocaleLayout": {
+        "title": "Pleamar - We rise together"
+    },
+    "LocaleSwitcher": {
+        "label": "Change language"
+    },
+    "Index": {
+        "title": "Hello there"
+    },
+    "header": {
+        "logo": "Pleamar logo",
+        "auth": {
+            "login": "LOG IN",
+            "register": "REGISTER"
+        }
+    },
+    "VisitorHome": {
+        "callToAction": {
+            "main": "Cruise towards success!",
+            "mainButton": "Sail away!",
+            "secondary": "Join the fleet now!",
+            "secondaryButton": "Start sailing"
+        },
+        "heroAlt": "Two boats are beached on a lake, before a beautiful sunset, waiting for their occupants to sail",
+        "features": {
+            "title": "Features",
+            "list": {
+                "feat0": "Improve your education with courses curated by the Technological University of Aguascalientes' staff.",
+                "feat1": "Participate as a creator in an innovative way to develop study and class material!",
+                "feat2": "Never miss a class again!\nWith Pleamar all of your courses are within a click of you!"
+            }
+        },
+        "testimonials": {
+            "title": "The Fleet",
+            "0": "It cured my cancer",
+            "1": "Very simple and clear interface",
+            "2": "Amazing user experience 10/10",
+            "3": "I wish we could give them more money",
+            "4": "I think that's enough to cover the whole screen"
+        }
+    }
+}
