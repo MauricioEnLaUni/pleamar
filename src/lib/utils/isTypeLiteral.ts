@@ -7,8 +7,8 @@
  * @param { unknown } value Input to validate
  * @param { any } options The object literal itself
  */
-export default <Type>(value: unknown, options: any) => {
-    if (Object.values(options).includes(value as Type))
+export default <Type>(value: string, options: any) => {
+    if (Object.keys(options).includes(value))
     {
         return value as Type;
     }

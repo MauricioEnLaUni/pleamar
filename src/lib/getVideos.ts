@@ -1,4 +1,4 @@
-import axios from "@/components/Auth/axios";
+import axios from "./requests/axios";
 
 const getVideos = async (id: string) => {
     const res = await axios.get("site");

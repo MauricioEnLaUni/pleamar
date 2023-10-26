@@ -4,7 +4,14 @@ import { encode } from "@msgpack/msgpack";
 
 import Loggable from "./Loggable";
 import withCatch from "@/lib/errors/withCatch";
-import Maybe from "@/lib/utils/Maybe";
+import unHandled from "@/lib/errors/unHandled";
+
+export default async (request: NextRequest) => {
+    if (request.nextUrl.pathname.includes("/api/"))
+    {
+        return await log(request);
+    }
+}
 
 const toLog = (request: NextRequest) => {
     const loggable: Loggable = {
@@ -39,14 +46,10 @@ const postMicroservices = async ({ service, payload }: { service: string, payloa
     });
 };
 
-const not = async (error: unknown, _: any) => {
-    return await new Promise(() => Maybe.nothing());
-};
-
-export default async (request: NextRequest) => {
+const log = async (request: NextRequest) => {
     return await withCatch(
         postMicroservices,
-        { service: `localhost:8080/logs`, payload: toLog(request) },
-        not
+        { service: `localhost:8082/logs`, payload: toLog(request) },
+        unHandled
     );
 }
