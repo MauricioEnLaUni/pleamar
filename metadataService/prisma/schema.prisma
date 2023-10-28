@@ -1,0 +1,156 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "./generated/clientMetadata"
+  previewFeatures = ["views"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("PG_METADATA_CONNECTION")
+}
+
+model video_entity {
+  id             BigInt           @id @default(autoincrement())
+  type           video_type       @default(MP4)
+  uploader       String           @db.Uuid
+  added          DateTime         @default(now()) @db.Timestamptz(6)
+  statuses       statuses[]
+  video_category video_category[]
+  user           users            @relation(fields: [uploader], references: [id])
+  video_metadata video_metadata?
+  views          views?
+
+  @@index([uploader])
+}
+
+model statuses {
+  id           BigInt       @id @default(autoincrement())
+  video        BigInt
+  current      video_status
+  added        DateTime     @default(now()) @db.Timestamptz(6)
+  video_entity video_entity @relation(fields: [video], references: [id])
+
+  @@index([video])
+}
+
+model video_metadata {
+  id           BigInt              @id @default(autoincrement())
+  video        BigInt              @unique
+  length_ms    BigInt
+  file_size    BigInt
+  added        DateTime            @default(now()) @db.Timestamptz(6)
+  description  video_description[]
+  video_entity video_entity        @relation(fields: [video], references: [id])
+  title        video_titles[]
+
+  @@index([video])
+}
+
+model video_titles {
+  id             BigInt         @id @default(autoincrement())
+  video          BigInt
+  content        String
+  added          DateTime       @default(now()) @db.Timestamptz(6)
+  video_metadata video_metadata @relation(fields: [video], references: [id])
+
+  @@index([video, content, added])
+}
+
+model video_description {
+  id             BigInt         @id @default(autoincrement())
+  video          BigInt
+  content        String
+  added          DateTime       @default(now()) @db.Timestamptz(6)
+  video_metadata video_metadata @relation(fields: [video], references: [id])
+
+  @@index([video, added])
+}
+
+model views {
+  id           BigInt       @id @default(autoincrement())
+  owner        BigInt       @unique
+  viewer       String       @db.Uuid
+  added        DateTime     @default(now()) @db.Timestamptz(6)
+  video_entity video_entity @relation(fields: [owner], references: [id])
+  users        users        @relation(fields: [viewer], references: [id])
+
+  @@index([owner])
+}
+
+model subtitles_container {
+  id        BigInt     @id @default(autoincrement())
+  lang      String
+  subtitles subtitle[]
+}
+
+model subtitle {
+  id                  BigInt              @id @default(autoincrement())
+  container           BigInt
+  timestamp           BigInt
+  content             String
+  added               DateTime            @default(now()) @db.Timestamptz(6)
+  subtitles_container subtitles_container @relation(fields: [container], references: [id])
+
+  @@index([container])
+}
+
+model categories {
+  id             BigInt           @id @default(autoincrement())
+  parent         BigInt
+  child          BigInt
+  added          DateTime         @default(now()) @db.Timestamptz(6)
+  name           cat_names[]
+  video_category video_category[]
+
+  @@index([parent, child])
+}
+
+model video_category {
+  id           BigInt       @id @default(autoincrement())
+  video        BigInt
+  cats         BigInt
+  added        DateTime     @default(now()) @db.Timestamptz(6)
+  category     categories   @relation(fields: [cats], references: [id])
+  video_entity video_entity @relation(fields: [video], references: [id])
+}
+
+model cat_names {
+  id         BigInt     @id @default(autoincrement())
+  name       String[]
+  owner      BigInt
+  added      DateTime   @default(now()) @db.Timestamptz(6)
+  categories categories @relation(fields: [owner], references: [id])
+
+  @@index([owner])
+}
+
+model users {
+  id           String         @id @db.Uuid
+  video_entity video_entity[]
+  views        views[]
+}
+
+view video {
+  video       BigInt        @unique
+  extension   video_type?
+  autor       String?       @db.Uuid
+  estado      video_status?
+  duracion    BigInt?
+  tama_o      BigInt?       @map("tamaño")
+  titulo      String?
+  descripcion String?
+  vistas      BigInt?
+}
+
+enum video_status {
+  ACTIVE
+  BANNED
+  DISABLED
+  PROCESSING
+}
+
+enum video_type {
+  MP4
+  OGG
+  FLV
+}
