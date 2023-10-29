@@ -11,17 +11,17 @@ import handleErrors from "./lib/middleware/handleErrors.js";
 
 dotenv.config();
 
+// seeder();
+
 const server = express();
 const PORT = process.env.PORT || 8085;
-
-// seeder();
 
 server.use(cors(corsOptions));
 server.use(express.json());
 
 server.use(handleEncrypted);
-server.use(handleErrors);
 
 server.use("/metadata", metadataRouter);
+server.use(handleErrors);
 
 server.listen(PORT);

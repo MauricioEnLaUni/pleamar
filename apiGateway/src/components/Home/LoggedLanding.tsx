@@ -1,38 +1,24 @@
 import Grid from "@mui/material/Unstable_Grid2";
 import VideoThumb from "./VideoThumb";
-import { Fragment } from "react";
 
-const video = {
-    metadata: {
-        author: "Test",
-        name: "Test Video",
-        id: "alksdmaslfn",
-        tags: ["One", "Two", "Three"],
-        length: 1000,
-        description: "This is a test video, probably will lorem it soon.",
-    },
-    measurements: {
-        width: 256,
-        height: 64,
-    },
-    url: "/img/stonks.avif",
-};
+import getMetadata from "@/lib/requests/metadata/getMetadata";
+import FrontPageMetadata from "@/lib/requests/metadata/FrontMetadata";
+import AES from "@/lib/Auth/crypto/AES";
 
-const cats = Array(3).fill(Array(4).fill(video, 0), 0);
+export default async () => {
+    const videoRequest: Promise<{ key: string }> = getMetadata(20);
+    const bytes = (await videoRequest).key;
+    const encrypted = new Uint8Array(bytes.split(",").map(Number));
 
-export default () => (
-    <Grid container spacing={2} className="" justifyContent="center" alignItems="center">
-        { cats.map((cat, index) => (
-            <Fragment key={ `cat-${ index }` }>
-                <Grid xs={12} key={`cat-title-${index + 1}`}>
-                    <h1>Category {index + 1}</h1>
+    const videos = AES.isSecure(encrypted) as FrontPageMetadata[];  
+
+    return(
+        <Grid container spacing={2} className="" justifyContent="center" alignItems="center">
+            { videos.map((video: FrontPageMetadata, index: number) => (
+                <Grid xs={12} md={6} lg={3} key={`video-thumbnail-${ index }`}>
+                    <VideoThumb metadata={video}/>
                 </Grid>
-                {cat.map((current: any, index: number) => (
-                    <Grid xs={12} md={6} lg={3} key={`home-${index}`}>
-                        <VideoThumb video={current}/>
-                    </Grid>
-                ))}
-            </Fragment>
-        ))}
-    </Grid>
-);
+            ))}
+        </Grid>
+    );
+}

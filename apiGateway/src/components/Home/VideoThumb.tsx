@@ -1,4 +1,3 @@
-/// <reference path="../Video.d.ts" />
 import React from "react";
 
 import Card from "@mui/material/Card";
@@ -9,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import FrontPageMetadata from "@/lib/requests/metadata/FrontMetadata";
 
 const displayTime = (length: number) => {
     const time = [1000, 60, 60];
@@ -21,22 +21,24 @@ const displayTime = (length: number) => {
     return duration.join(":");
 }
 
-export default ({ video }: { video: Video }) => {
-    const { measurements, metadata, url } = video;
-    const length = displayTime(metadata.length);
+const url = "/img/stonks.avif";
+
+export default ({ metadata }: { metadata: FrontPageMetadata }) => {
+    const length = displayTime(metadata.duracion);
 
     return (
         <Card sx={{ position: "relative" }}>
             <CardActionArea>
                 <CardMedia
-                    sx={{ height: measurements.height }}
+                    sx={{ height: 250 }}
                     image={url}
-                    title={`${ metadata.name } Thumbnail`}
+                    title={`${ metadata.titulo } Thumbnail`}
                 />
                 <Typography>{ length }</Typography>
                 <CardContent>
-                    <Typography>{ metadata.name }</Typography>
-                    <Typography>{ metadata.author }</Typography>
+                    <Typography>{ metadata.titulo }</Typography>
+                    <Typography>{ metadata.autor }</Typography>
+                    <Typography>{ metadata.vistas }</Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>

@@ -92,7 +92,6 @@ export default async () => {
             SELECT DISTINCT ON(video) video as id, content AS descripcion
             FROM video_description
             ORDER BY video, added DESC
-            LIMIT 1
         ) AS d
         ON v.id = d.id
         JOIN (
