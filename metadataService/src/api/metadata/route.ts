@@ -75,7 +75,7 @@ router.get("/all", async (_, res) => {
 });
 
 router.get("/front", async (req, res) => {
-    const take = req.body.take;
+    const take = Number(req.query.params);
     const prisma = new PrismaClient();
 
     try {
